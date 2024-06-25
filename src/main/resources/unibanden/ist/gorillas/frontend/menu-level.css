@@ -1,0 +1,51 @@
+/* Responsible: Emil Dissing s214912 */
+.root{
+	-fx-background-color: #111111;
+}
+
+.button{
+  	-fx-background-color: none;
+  	-fx-border-color: #ffffff;
+  	-fx-border-width: 3px;
+  	-fx-color: #000000;
+  	-fx-text-align: center;
+  	-fx-font-size: 36px;
+  	-fx-transition: 0.3s;
+  	-fx-display: inline-block;
+  	-fx-text-decoration: none;
+  	-fx-cursor: pointer;
+  	-fx-padding: 4px;
+}
+
+.button:hover{
+  	-fx-background-color: none;
+  	-fx-border-color: "RED";
+  	-fx-color: #000000;
+  	-fx-text-align: center;
+  	-fx-font-size: 36px;
+  	-fx-padding: 4px;
+  	-fx-transition: 0.3s;
+  	-fx-display: inline-block;
+  	-fx-text-decoration: none;
+  	-fx-cursor: pointer;
+}
+
+#back{
+  	-fx-border-color: none;
+}
+
+#back:hover{
+  	-fx-background-color: none;
+  	-fx-border-color: #ffffff;
+  	-fx-color: #000000;
+  	-fx-text-align: center;
+  	-fx-font-size: 36px;
+  	-fx-transition: 0.3s;
+  	-fx-text-decoration: none;
+  	-fx-cursor: pointer;
+}
+
+.label{
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 48px;
+}

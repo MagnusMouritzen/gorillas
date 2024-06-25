@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unibanden.ist.gorillas.frontend.MenuOptionsController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="68.0" prefWidth="960.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="960.0" text="Options">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutY="60.0" prefHeight="40.0" prefWidth="960.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label text="Player Count" />
+            <TextField fx:id="playerCountText" editable="false" onKeyPressed="#playerCountHandle" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="94.0" prefHeight="40.0" prefWidth="960.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label text="Width" />
+            <TextField fx:id="widthText" />
+            <Label text="Height">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="heightText" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" layoutY="516.0" prefHeight="109.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#menuMain" prefHeight="68.0" prefWidth="144.0" text="Back">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_CENTER" layoutY="140.0" prefHeight="247.0" prefWidth="960.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Pane prefHeight="428.0" prefWidth="800.0">
+               <children>
+                  <ScrollPane fx:id="scrollPane" prefHeight="220.0" prefWidth="800.0" vbarPolicy="NEVER">
+                     <content>
+                        <AnchorPane fx:id="keysPane" prefHeight="302.0" prefWidth="798.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" layoutY="364.0" prefHeight="141.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="364.0">
+         <children>
+            <AnchorPane fx:id="optionsPane" prefHeight="238.0" prefWidth="600.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

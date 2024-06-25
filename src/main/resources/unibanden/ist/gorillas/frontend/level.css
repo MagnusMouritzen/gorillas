@@ -1,0 +1,11 @@
+/* Responsible: Emil Dissing s214912 */
+.button{
+	-fx-radius: 8px;
+  	-fx-color: black;
+  	-fx-background-color: none;
+  	-fx-font-size: 18px;
+}
+
+.button:hover{
+  	-fx-color: lightgray;
+}
