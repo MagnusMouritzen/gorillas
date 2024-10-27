@@ -36,6 +36,16 @@ jobs:
             --type app-image \
             --dest out/
 
+      - name: Add .desktop File
+        run: |
+          mkdir -p out/GorillasApp/usr/share/applications
+          echo "[Desktop Entry]
+          Name=GorillasApp
+          Exec=GorillasApp
+          Icon=GorillasApp
+          Type=Application
+          Categories=Game;" > out/GorillasApp/usr/share/applications/GorillasApp.desktop
+
       - name: Download and Extract appimagetool
         run: |
           wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
@@ -51,5 +61,6 @@ jobs:
         with:
           name: GorillasApp-Linux
           path: out/GorillasApp.AppImage
+
 
 
