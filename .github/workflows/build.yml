@@ -25,7 +25,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Package as AppImage
+      - name: Package as AppImage Directory
         run: |
           jpackage \
             --input target \
@@ -35,12 +35,22 @@ jobs:
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
             --dest out/
-      
+
+      - name: Download and Make appimagetool Executable
+        run: |
+          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+      - name: Create AppImage
+        run: |
+          ./appimagetool-x86_64.AppImage out/GorillasApp out/GorillasApp.AppImage
+
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-Linux
-          path: out/GorillasApp
+          path: out/GorillasApp.AppImage
+
 
   build-windows:
     runs-on: windows-latest
