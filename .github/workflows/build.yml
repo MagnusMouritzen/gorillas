@@ -25,7 +25,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Package as AppImage Directory
+      - name: Package as AppImage
         run: |
           jpackage \
             --input target \
@@ -35,32 +35,10 @@ jobs:
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
             --dest out/
-
-      - name: Add .desktop File
-        run: |
-          mkdir -p out/GorillasApp/usr/share/applications
-          echo "[Desktop Entry]
-          Name=GorillasApp
-          Exec=GorillasApp
-          Icon=GorillasApp
-          Type=Application
-          Categories=Game;" > out/GorillasApp/usr/share/applications/GorillasApp.desktop
-
-      - name: Download and Extract appimagetool
-        run: |
-          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-          chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage --appimage-extract
-
-      - name: Create AppImage
-        run: |
-          ./squashfs-root/AppRun out/GorillasApp out/GorillasApp.AppImage
-
+      
       - name: Upload Linux AppImage
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-Linux
-          path: out/GorillasApp.AppImage
-
-
+          path: out/GorillasApp
 
