@@ -30,7 +30,7 @@ jobs:
           jpackage \
             --input target \
             --name GorillasApp \
-            --main-jar gorillas.jar \
+            --main-jar gorillas-1.0-SNAPSHOT.jar \
             --module-path /usr/share/openjfx/lib \
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
@@ -67,7 +67,7 @@ jobs:
           jpackage \
             --input target \
             --name GorillasApp \
-            --main-jar gorillas.jar \
+            --main-jar gorillas-1.0-SNAPSHOT.jar \
             --module-path $env:GITHUB_WORKSPACE\javafx-sdk\lib \
             --add-modules javafx.controls,javafx.fxml \
             --type exe \
@@ -104,7 +104,7 @@ jobs:
           jpackage \
             --input target \
             --name GorillasApp \
-            --main-jar gorillas.jar \
+            --main-jar gorillas-1.0-SNAPSHOT.jar \
             --module-path $GITHUB_WORKSPACE/javafx-sdk/lib \
             --add-modules javafx.controls,javafx.fxml \
             --type dmg \
