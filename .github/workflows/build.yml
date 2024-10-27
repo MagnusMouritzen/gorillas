@@ -1,0 +1,118 @@
+name: Build and Package JavaFX App
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install JavaFX
+        run: sudo apt install -y openjfx
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package as AppImage
+        run: |
+          jpackage \
+            --input target \
+            --name GorillasApp \
+            --main-jar gorillas.jar \
+            --module-path /usr/share/openjfx/lib \
+            --add-modules javafx.controls,javafx.fxml \
+            --type app-image \
+            --dest out/
+      
+      - name: Upload Linux AppImage
+        uses: actions/upload-artifact@v2
+        with:
+          name: GorillasApp-Linux
+          path: out/GorillasApp
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download JavaFX SDK
+        run: |
+          Invoke-WebRequest -Uri https://gluonhq.com/download/javafx-17.0.2-sdk-windows.zip -OutFile javafx.zip
+          Expand-Archive javafx.zip -DestinationPath $env:GITHUB_WORKSPACE\javafx-sdk
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package as EXE
+        run: |
+          jpackage \
+            --input target \
+            --name GorillasApp \
+            --main-jar gorillas.jar \
+            --module-path $env:GITHUB_WORKSPACE\javafx-sdk\lib \
+            --add-modules javafx.controls,javafx.fxml \
+            --type exe \
+            --dest out/
+      
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v2
+        with:
+          name: GorillasApp-Windows
+          path: out/GorillasApp.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download JavaFX SDK
+        run: |
+          curl -Lo javafx.zip https://gluonhq.com/download/javafx-17.0.2-sdk-macos.zip
+          unzip javafx.zip -d $GITHUB_WORKSPACE/javafx-sdk
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package as DMG
+        run: |
+          jpackage \
+            --input target \
+            --name GorillasApp \
+            --main-jar gorillas.jar \
+            --module-path $GITHUB_WORKSPACE/javafx-sdk/lib \
+            --add-modules javafx.controls,javafx.fxml \
+            --type dmg \
+            --dest out/
+
+      - name: Upload macOS DMG
+        uses: actions/upload-artifact@v2
+        with:
+          name: GorillasApp-macOS
+          path: out/GorillasApp.dmg
+
