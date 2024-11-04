@@ -64,7 +64,7 @@ jobs:
         run: mvn clean package
 
       - name: Package as AppImage Directory
-        run: jpackage --input target --name GorillasApp --main-jar gorillas-1.0-SNAPSHOT.jar --module-path "$env:GITHUB_WORKSPACE\javafx-sdk/javafx-sdk-23.0.1/lib" --add-modules javafx.controls,javafx.fxml --type app-image --dest out/ --vendor "Otter Knight"
+        run: jpackage --input target --name GorillasApp --main-jar gorillas-1.0-SNAPSHOT.jar --module-path "$env:GITHUB_WORKSPACE\javafx-sdk/javafx-sdk-21.0.5/lib" --add-modules javafx.controls,javafx.fxml --type app-image --dest out/ --vendor "Otter Knight"
 
       - name: Upload App Image
         uses: actions/upload-artifact@v3
@@ -86,7 +86,7 @@ jobs:
 
       - name: Download JavaFX SDK
         run: |
-          curl -Lo javafx.zip https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_osx-aarch64_bin-sdk.zip
+          curl -Lo javafx.zip https://download2.gluonhq.com/openjfx/21.0.5/openjfx-21.0.5_osx-aarch64_bin-sdk.zip
           unzip javafx.zip -d $GITHUB_WORKSPACE/javafx-sdk
 
       - name: Verify JavaFX SDK Extraction
@@ -101,7 +101,7 @@ jobs:
             --input target \
             --name GorillasApp \
             --main-jar gorillas-1.0-SNAPSHOT.jar \
-            --module-path $GITHUB_WORKSPACE/javafx-sdk/javafx-sdk-23.0.1/lib \
+            --module-path $GITHUB_WORKSPACE/javafx-sdk/javafx-sdk-21.0.5/lib \
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
             --dest out/ \
