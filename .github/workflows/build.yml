@@ -64,7 +64,7 @@ jobs:
         run: mvn clean package
 
       - name: Package as AppImage Directory
-        run: jpackage --input target --name GorillasApp --main-jar gorillas-1.0-SNAPSHOT.jar --module-path "$env:GITHUB_WORKSPACE\javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml --type app-image --dest out/ --vendor "Otter Knight"
+        run: jpackage --input target --name GorillasApp --main-jar gorillas-1.0-SNAPSHOT.jar --module-path "$env:GITHUB_WORKSPACE\javafx-sdk/javafx-sdk-23.0.1/lib" --add-modules javafx.controls,javafx.fxml --type app-image --dest out/ --vendor "Otter Knight"
 
       - name: Upload App Image
         uses: actions/upload-artifact@v3
@@ -101,7 +101,7 @@ jobs:
             --input target \
             --name GorillasApp \
             --main-jar gorillas-1.0-SNAPSHOT.jar \
-            --module-path $GITHUB_WORKSPACE/javafx-sdk/lib \
+            --module-path $GITHUB_WORKSPACE/javafx-sdk/javafx-sdk-23.0.1/lib \
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
             --dest out/ \
