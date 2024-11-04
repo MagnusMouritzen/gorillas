@@ -104,11 +104,8 @@ jobs:
             --dest out/ \
             --vendor "Otter Knight"
 
-      - name: List Output Directory
-        run: ls -R out
-
       - name: Upload App Image
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-macOS
-          path: out/GorillasApp
+          path: out/GorillasApp.app
