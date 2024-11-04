@@ -34,32 +34,14 @@ jobs:
             --module-path /usr/share/openjfx/lib \
             --add-modules javafx.controls,javafx.fxml \
             --type app-image \
-            --dest out/
+            --dest out/ \
+            --vendor "Otter Knight"
 
-      - name: Create .desktop File
-        run: |
-          echo "[Desktop Entry]
-          Name=GorillasApp
-          Exec=bin/GorillasApp
-          Icon=lib/app/classes/unibanden/ist/gorillas/frontend/monke
-          Type=Application
-          Categories=Utility;
-          Comment=A description of GorillasApp" > out/GorillasApp/GorillasApp.desktop
-
-      - name: Download and Make appimagetool Executable
-        run: |
-          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-          chmod +x appimagetool-x86_64.AppImage
-
-      - name: Create AppImage
-        run: |
-          ./appimagetool-x86_64.AppImage out/GorillasApp out/GorillasApp.AppImage
-
-      - name: Upload Linux AppImage
+      - name: Upload App Image
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-Linux
-          path: out/GorillasApp.AppImage
+          path: out/GorillasApp
 
   build-windows:
     runs-on: windows-latest
@@ -81,7 +63,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Package as EXE
+      - name: Package as AppImage Directory
         run: |
           jpackage \
             --input target \
@@ -89,14 +71,15 @@ jobs:
             --main-jar gorillas-1.0-SNAPSHOT.jar \
             --module-path "$env:GITHUB_WORKSPACE\javafx-sdk\lib" \
             --add-modules javafx.controls,javafx.fxml \
-            --type exe \
-            --dest out/
+            --type app-image \
+            --dest out/ \
+            --vendor "Otter Knight"
 
-      - name: Upload Windows EXE
+      - name: Upload App Image
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-Windows
-          path: out/GorillasApp.exe
+          path: out/GorillasApp
 
   build-macos:
     runs-on: macos-latest
@@ -118,7 +101,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Package as DMG
+      - name: Package as AppImage Directory
         run: |
           jpackage \
             --input target \
@@ -126,12 +109,12 @@ jobs:
             --main-jar gorillas-1.0-SNAPSHOT.jar \
             --module-path $GITHUB_WORKSPACE/javafx-sdk/lib \
             --add-modules javafx.controls,javafx.fxml \
-            --type dmg \
-            --dest out/
+            --type app-image \
+            --dest out/ \
+            --vendor "Otter Knight"
 
-      - name: Upload macOS DMG
+      - name: Upload App Image
         uses: actions/upload-artifact@v3
         with:
           name: GorillasApp-macOS
-          path: out/GorillasApp.dmg
-
+          path: out/GorillasApp
