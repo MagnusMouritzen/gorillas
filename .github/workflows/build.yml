@@ -57,7 +57,7 @@ jobs:
 
       - name: Download JavaFX SDK
         run: |
-          Invoke-WebRequest -Uri https://gluonhq.com/download/javafx-23.0.1-sdk-windows-x64.zip -OutFile javafx.zip
+          Invoke-WebRequest -Uri https://download2.gluonhq.com/openjfx/21.0.5/openjfx-21.0.5_windows-x64_bin-sdk.zip -OutFile javafx.zip
           Expand-Archive javafx.zip -DestinationPath $env:GITHUB_WORKSPACE\javafx-sdk
 
       - name: Build with Maven
@@ -95,7 +95,7 @@ jobs:
 
       - name: Download JavaFX SDK
         run: |
-          curl -Lo javafx.zip https://gluonhq.com/download/javafx-23.0.1-sdk-macos-x64.zip
+          curl -Lo javafx.zip https://download2.gluonhq.com/openjfx/23.0.1/openjfx-23.0.1_osx-aarch64_bin-sdk.zip
           unzip javafx.zip -d $GITHUB_WORKSPACE/javafx-sdk
 
       - name: Build with Maven
