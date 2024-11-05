@@ -58,7 +58,7 @@ jobs:
 
       - name: Copy JavaFX Dependencies
         run: |
-          mvn dependency:copy-dependencies -DincludeGroupIds=org.openjfx -DoutputDirectory=target/javafx-lib
+          mvn "dependency:copy-dependencies" "-DincludeGroupIds=org.openjfx" "-DoutputDirectory=target/javafx-lib"
 
       - name: Package as Windows app
         run: |
