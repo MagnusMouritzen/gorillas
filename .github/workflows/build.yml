@@ -61,16 +61,7 @@ jobs:
           mvn "dependency:copy-dependencies" "-DincludeGroupIds=org.openjfx" "-DoutputDirectory=target/javafx-lib"
 
       - name: Package as Windows app
-        run: |
-          jpackage \
-            --input target \
-            --name GorillasApp \
-            --main-jar gorillas-1.0-SNAPSHOT.jar \
-            --module-path target/javafx-lib \
-            --add-modules javafx.controls,javafx.fxml \
-            --type app-image \
-            --dest out/ \
-            --vendor "Otter Knight"
+        run: jpackage --input target --name GorillasApp --main-jar gorillas-1.0-SNAPSHOT.jar --module-path target/javafx-lib --add-modules javafx.controls,javafx.fxml --type app-image --dest out/ --vendor "Otter Knight"
 
       - name: Upload Windows EXE
         uses: actions/upload-artifact@v3
