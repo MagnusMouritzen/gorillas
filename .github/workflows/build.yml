@@ -7,42 +7,40 @@ on:
     branches: [main]
 
 jobs:
-#  build-linux:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Check out the code
-#        uses: actions/checkout@v2
-#
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v2
-#        with:
-#          distribution: 'temurin'
-#          java-version: '17'
-#
-#      - name: Install JavaFX
-#        run: sudo apt install -y openjfx
-#
-#      - name: Build with Maven
-#        run: mvn clean package
-#
-#      - name: Package as AppImage Directory
-#        run: |
-#          jpackage \
-#            --input target \
-#            --name GorillasApp \
-#            --main-jar gorillas-1.0-SNAPSHOT.jar \
-#            --module-path /usr/share/openjfx/lib \
-#            --add-modules javafx.controls,javafx.fxml \
-#            --type app-image \
-#            --dest out/ \
-#            --vendor "Otter Knight"
-#
-#      - name: Upload App Image
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: GorillasApp-Linux
-#          path: out/GorillasApp
-#
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven and Copy JavaFX Dependencies
+        run: mvn clean package dependency:copy-dependencies -DincludeGroupIds=org.openjfx -DoutputDirectory=target/javafx-lib
+
+      - name: Package as AppImage Directory
+        run: |
+          jpackage \
+            --input target \
+            --name GorillasApp \
+            --main-jar gorillas-1.0-SNAPSHOT.jar \
+            --module-path target/javafx-lib \
+            --add-modules javafx.controls,javafx.fxml \
+            --type app-image \
+            --dest out/ \
+            --vendor "Otter Knight"
+
+      - name: Upload App Image
+        uses: actions/upload-artifact@v3
+        with:
+          name: GorillasApp-Linux
+          path: out/GorillasApp
+
+
 #  build-windows:
 #    runs-on: windows-latest
 #    steps:
@@ -71,41 +69,41 @@ jobs:
 #        with:
 #          name: GorillasApp-Windows
 #          path: out/GorillasApp
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Download JavaFX SDK
-        run: |
-          curl -Lo javafx.zip https://download2.gluonhq.com/openjfx/21.0.5/openjfx-21.0.5_osx-aarch64_bin-sdk.zip
-          unzip javafx.zip -d $GITHUB_WORKSPACE/javafx-sdk
-
-      - name: Build with Maven
-        run: mvn clean package
-
-      - name: Package as AppImage Directory
-        run: |
-          jpackage \
-            --input target \
-            --name GorillasApp \
-            --main-jar gorillas-1.0-SNAPSHOT.jar \
-            --module-path $GITHUB_WORKSPACE/javafx-sdk/javafx-sdk-21.0.5/lib \
-            --add-modules javafx.controls,javafx.fxml \
-            --type app-image \
-            --dest out/ \
-            --vendor "Otter Knight"
-
-      - name: Upload App Image
-        uses: actions/upload-artifact@v3
-        with:
-          name: GorillasApp-macOS
-          path: out/GorillasApp.app
+#
+#  build-macos:
+#    runs-on: macos-latest
+#    steps:
+#      - name: Check out the code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v2
+#        with:
+#          distribution: 'temurin'
+#          java-version: '17'
+#
+#      - name: Download JavaFX SDK
+#        run: |
+#          curl -Lo javafx.zip https://download2.gluonhq.com/openjfx/21.0.5/openjfx-21.0.5_osx-aarch64_bin-sdk.zip
+#          unzip javafx.zip -d $GITHUB_WORKSPACE/javafx-sdk
+#
+#      - name: Build with Maven
+#        run: mvn clean package
+#
+#      - name: Package as AppImage Directory
+#        run: |
+#          jpackage \
+#            --input target \
+#            --name GorillasApp \
+#            --main-jar gorillas-1.0-SNAPSHOT.jar \
+#            --module-path $GITHUB_WORKSPACE/javafx-sdk/javafx-sdk-21.0.5/lib \
+#            --add-modules javafx.controls,javafx.fxml \
+#            --type app-image \
+#            --dest out/ \
+#            --vendor "Otter Knight"
+#
+#      - name: Upload App Image
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: GorillasApp-macOS
+#          path: out/GorillasApp.app
